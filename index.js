@@ -26,3 +26,22 @@ exports.saveFile = async (req, baseDir, dirName, fileName) => {
         return false;
     }
 };
+
+
+exports.deleteFile = async (baseDir, dirName, fileName) => {
+    try {
+        const uploadDir = path.join(baseDir, dirName);
+        const filePath = path.join(uploadDir, fileName);
+
+        // Check if file exists
+        if (fs.existsSync(filePath)) {
+            await fs.promises.unlink(filePath);
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+};
