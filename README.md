@@ -34,6 +34,59 @@ app.listen(5050, function () {
 });
 ```
 
+
+## How To Upload Using Fetch 
+```javascript
+async function uploadFile() {
+  try {
+    var formdata = new FormData();
+    formdata.append("files", fileInput.files[0]);
+
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow',
+    };
+
+    const response = await fetch("http://localhost:5050/uploads", requestOptions);
+    const result = await response.text();
+    console.log(result);
+  } catch (error) {
+    console.log('error', error);
+  }
+}
+
+// Call the function
+uploadFile();
+
+```
+
+
+
+## How To Upload Using Axios
+```javascript
+async function uploadFile() {
+    try {
+        const formData = new FormData();
+        formData.append("files", fileInput.files[0]);
+
+        const response = await axios.post("http://localhost:5050/uploads", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        console.log(response.data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Call the function
+uploadFile();
+
+```
+
 ## Configuration Options
 
 - `fileForge.saveFile(req, storagePath, fileName)`: Save the uploaded file to the specified storage path with the given filename.
