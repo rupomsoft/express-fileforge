@@ -2,7 +2,7 @@ import fs from "node:fs";
 import { Request } from "express";
 import path from "path";
 
-export async function saveFile(req: Request, baseDir: string, dirName: string, fileName: string) {
+async function saveFile(req: Request, baseDir: string, dirName: string, fileName: string) {
   try {
     const uploadDir: string = path.join(baseDir, dirName);
     const filePath: string = path.join(uploadDir, fileName);
@@ -28,7 +28,7 @@ export async function saveFile(req: Request, baseDir: string, dirName: string, f
   }
 }
 
-export async function deleteFile(baseDir: string, dirName: string, fileName: string) {
+async function deleteFile(baseDir: string, dirName: string, fileName: string) {
   try {
     const uploadDir: string = path.join(baseDir, dirName);
     const filePath: string = path.join(uploadDir, fileName);
@@ -45,3 +45,5 @@ export async function deleteFile(baseDir: string, dirName: string, fileName: str
     return false;
   }
 }
+
+export default { saveFile, deleteFile };

@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteFile = exports.saveFile = void 0;
 const node_fs_1 = __importDefault(require("node:fs"));
 const path_1 = __importDefault(require("path"));
 async function saveFile(req, baseDir, dirName, fileName) {
@@ -29,7 +28,6 @@ async function saveFile(req, baseDir, dirName, fileName) {
         return false;
     }
 }
-exports.saveFile = saveFile;
 async function deleteFile(baseDir, dirName, fileName) {
     try {
         const uploadDir = path_1.default.join(baseDir, dirName);
@@ -47,5 +45,5 @@ async function deleteFile(baseDir, dirName, fileName) {
         return false;
     }
 }
-exports.deleteFile = deleteFile;
+exports.default = { saveFile, deleteFile };
 //# sourceMappingURL=index.js.map
