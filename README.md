@@ -4,20 +4,18 @@
 npm install express-fileforge
 ```
 
+## Express JS Example 
 ```javascript
 const express = require('express');
-const fileForge = require('express-fileforge'); // Make sure deleteFile is exported from here
+const fileForge = require('express-fileforge'); 
 const path = require('path');
 const app = express();
 
 // Your route for file upload
 app.post('/upload', async function (req, res) {
     try {
-        // Set up file storage directory
-        const fileStoragePath = path.resolve(__dirname, 'myFiles');
-        // Save the uploaded file
-        let uploadedFile = await fileForge.saveFile(req, fileStoragePath, 'abc.pdf');
-
+        // Upload file
+        let uploadedFile = await fileForge.saveFile(req, path.resolve(__dirname),'myFiles', 'abc.pdf');
         res.end(`File uploaded successfully: ${uploadedFile}`);
     } catch (error) {
         console.error(error);
@@ -28,13 +26,12 @@ app.post('/upload', async function (req, res) {
 // Route for file deletion
 app.delete('/delete/:fileName', async function (req, res) {
     try {
-        // Set up file storage directory
-        const fileStoragePath = path.resolve(__dirname, 'myFiles');
+
         // File name from the URL parameter
         const fileName = req.params.fileName;
 
         // Delete the specified file
-        const isDeleted = await fileForge.deleteFile(fileStoragePath, '', fileName);
+        const isDeleted = await fileForge.deleteFile(path.resolve(__dirname),'myFiles',  fileName);
         if (isDeleted) {
             res.end(`File deleted successfully: ${fileName}`);
         } else {
@@ -106,21 +103,52 @@ uploadFile();
 
 ```
 
-## Configuration Options
 
-- `fileForge.saveFile(req, storagePath, fileName)`: Save the uploaded file to the specified storage path with the given filename.
 
-## Example
+## How To Delete Using Fetch
+```javascript
+const deleteFile = async () => {
+    const FileName = "abc.pdf";
+    const requestOptions = {method: 'DELETE'};
+    try {
+        const response = await fetch(`http://localhost:5050/delete/${FileName}`, requestOptions);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const result = await response.text();
+        console.log(result);
+    } catch (error) {
+        console.log('error', error);
+    }
+};
+// Call the async function
+deleteFile();
 
-In the example above, the `express-fileforge` utility is used directly within the `/upload` route to handle file uploads. The uploaded file is saved using `fileForge.saveFile`, and the file path is logged to the console.
+```
 
-Feel free to customize the route and the logic inside the route handler according to your application's requirements.
+
+
+## How To Delete Using Axios
+```javascript
+const deleteFile = async () => {
+    const FileName = "abc.pdf";
+    try {
+        const response = await axios.delete(`http://localhost:5050/delete/${FileName}`);
+        console.log(response.data);
+    } catch (error) {
+        console.log('error', error.message);
+    }
+};
+// Call the async function
+deleteFile();
+```
+
+
 
 ## License
 
 This package is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
-
 - This package is inspired by the need for a simple and efficient file upload solution for Express.js applications.
 - Thanks to the Express.js and Node.js communities for their valuable contributions.
