@@ -8,6 +8,7 @@ app.post('/upload', async function (req, res) {
     try {
         // Upload file
         let uploadedFile = await fileForge.saveFile(req, path.resolve(__dirname),'myFiles', 'abc.pdf');
+        
         res.end(`File uploaded successfully: ${uploadedFile}`);
     } catch (error) {
         console.error(error);
@@ -24,6 +25,7 @@ app.delete('/delete/:fileName', async function (req, res) {
 
         // Delete the specified file
         const isDeleted = await fileForge.deleteFile(path.resolve(__dirname),'myFiles',  fileName);
+
         if (isDeleted) {
             res.end(`File deleted successfully: ${fileName}`);
         } else {
