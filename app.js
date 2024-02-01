@@ -1,16 +1,13 @@
 const express = require('express');
-const fileForge = require('index'); // Make sure deleteFile is exported from here
+const fileForge = require('./index'); // Make sure deleteFile is exported from here
 const path = require('path');
 const app = express();
 
 // Your route for file upload
 app.post('/upload', async function (req, res) {
     try {
-        // Set up file storage directory
-        const fileStoragePath = path.resolve(__dirname, 'myFiles');
-        // Save the uploaded file
-        let uploadedFile = await fileForge.saveFile(req, fileStoragePath, 'abc.pdf');
-
+        // Upload file
+        let uploadedFile = await fileForge.saveFile(req, path.resolve(__dirname),'myFiles', 'abc.pdf');
         res.end(`File uploaded successfully: ${uploadedFile}`);
     } catch (error) {
         console.error(error);
@@ -21,13 +18,12 @@ app.post('/upload', async function (req, res) {
 // Route for file deletion
 app.delete('/delete/:fileName', async function (req, res) {
     try {
-        // Set up file storage directory
-        const fileStoragePath = path.resolve(__dirname, 'myFiles');
+
         // File name from the URL parameter
         const fileName = req.params.fileName;
 
         // Delete the specified file
-        const isDeleted = await fileForge.deleteFile(fileStoragePath, '', fileName);
+        const isDeleted = await fileForge.deleteFile(path.resolve(__dirname),'myFiles',  fileName);
         if (isDeleted) {
             res.end(`File deleted successfully: ${fileName}`);
         } else {
