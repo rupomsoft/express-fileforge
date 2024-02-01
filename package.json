@@ -1,12 +1,34 @@
 {
   "name": "express-fileforge",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "express js",
+    "file",
+    "upload",
+    "download",
+    "storage",
+    "transfer",
+    "file manager",
+    "cloud",
+    "filesystem",
+    "file handling",
+    "data exchange",
+    "attachment",
+    "document",
+    "file service",
+    "data storage",
+    "file sharing",
+    "multipart",
+    "binary data",
+    "upload manager",
+    "download manager",
+    "file manipulation"
+  ],
   "author": "",
   "license": "ISC",
   "repository": {
