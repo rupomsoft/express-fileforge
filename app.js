@@ -7,7 +7,7 @@ const app = express();
 app.post('/upload', async function (req, res) {
     try {
         // Upload file
-        let uploadedFile = await fileForge.saveFile(req, path.resolve(__dirname),'myFiles', 'abc.pdf');
+        let uploadedFile = await fileForge.saveFile(req, path.resolve(__dirname),'myFiles', `demo.png`);
         
         res.end(`File uploaded successfully: ${uploadedFile}`);
     } catch (error) {
